@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Калькулятор стоимости</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+        }
+        .image-container {
+            text-align: center;
+            margin: 20px 0;
+        }
+        img {
+            max-width: 100%;
+            height: auto;
+        }
+    </style>
+</head>
+<body>
+
+    <h1>Калькулятор стоимости</h1>
+
+    <form>
+        <label>Выберите размер:</label><br>
+        <input type="radio" name="size" value="4x4.3" checked> 4x4.3 м — 1 292 800 ₽<br>
+        <input type="radio" name="size" value="4x5"> 4x5 м — 1 384 600 ₽<br>
+        <input type="radio" name="size" value="4x6"> 4x6 м — 1 497 700 ₽<br><br>
+
+        <label>Материал стен:</label><br>
+        <input type="radio" name="material" value="ель" checked> Ель — +0 ₽<br>
+        <input type="radio" name="material" value="кедр"> Кедр — +97 000 / 104 000 / 121 000 ₽<br><br>
+
+        <button type="button" onclick="calculate()">Рассчитать</button>
+    </form>
+
+    <h3 id="result">Итого: 1 292 800 ₽</h3>
+
+    <script>
+        function calculate() {
+            const size = document.querySelector('input[name="size"]:checked').value;
+            const material = document.querySelector('input[name="material"]:checked').value;
+
+            let basePrice = 0;
+            let surcharge = 0;
+
+            if (size === '4x4.3') {
+                basePrice = 1292800;
+                surcharge = material === 'кедр' ? 97000 : 0;
+            } else if (size === '4x5') {
+                basePrice = 1384600;
+                surcharge = material === 'кедр' ? 104000 : 0;
+            } else if (size === '4x6') {
+                basePrice = 1497700;
+                surcharge = material === 'кедр' ? 121000 : 0;
+            }
+
+            const total = basePrice + surcharge;
+            document.getElementById("result").innerText = `Итого: ${total.toLocaleString()} ₽`;
+        }
+    </script>
+
+    <h2>1. Габариты</h2>
+
+    <div class="image-container">
+        <img src="slide1.jpg" alt="4x4.3">
+    </div>
+
+    <div class="image-container">
+        <img src="slide2.jpg" alt="4x5">
+    </div>
+
+    <div class="image-container">
+        <img src="slide3.jpg" alt="4x6">
+    </div>
+
+    <h2>2. Материал каркаса</h2>
+
+    <div class="image-container">
+        <img src="slide4.jpg" alt="Материал каркаса">
+    </div>
+
+</body>
+</html>
